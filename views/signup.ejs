@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/signup.css">
+</head>
+
+<body>
+    <h2>Register</h2>
+
+    <!-- Single Form Starts Here -->
+    <form id="full-form" action="/signup" method="POST" enctype="multipart/form-data">
+
+        <!-- Email & Send OTP -->
+        <div class="email-otp-group">
+            <input type="email" id="email" name="email" placeholder="Enter Email" required />
+            <button type="button" id="send-btn">Sent OTP</button>
+        </div>
+        <!--  OTP Verification -->
+        <div class="otp-section">
+            <input type="text" id="otp" name="otp" placeholder="Enter OTP" required />
+            <button type="button" id="verify-btn">Verify OTP</button>
+        </div>
+
+        <input type="hidden" name="email" id="hidden-email" />
+        <!--  Extra Fields (only show after OTP verified) -->
+        <div id="extra-fields" style="display: none;">
+            <input type="text" name="name" placeholder="Name" required /><br>
+            <input type="password" name="password" placeholder="Password" required /><br>
+            <input type="file" name="dp" accept="image/*" /><br>
+            <button type="submit" id="savepass">Save Password</button>
+        </div>
+    </form>
+    <a href="/login">You have already account? Login</a>
+
+    <script>
+        const step1 = document.querySelector(".email-otp-group");
+        const step2 = document.querySelector(".otp-section");
+        const step3 = document.querySelector("#extra-fields");
+        const inputemail = document.querySelector("#email");
+        const inputotp = document.querySelector("#otp");
+        const verifybtn = document.querySelector("#verify-btn");
+        const sendbtn = document.querySelector("#send-btn");
+        const hiddenEmail = document.querySelector("#hidden-email");
+        //  Step 1: Send OTP
+        sendbtn.addEventListener("click", async () => {
+            const email = inputemail.value;
+
+            const res = await fetch("/send-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `email=${encodeURIComponent(email)}`
+            });
+
+            if (res.ok) {
+                alert("OTP sent to your email!");
+            } else {
+                alert("Failed to send OTP");
+            }
+        });
+
+        // Step 2: Verify OTP
+        verifybtn.addEventListener("click", async () => {
+            const email = inputemail.value;
+            const otp = inputotp.value;
+
+            const res = await fetch("/verify-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`
+            });
+
+
+
+            const result = await res.text();
+            if (result.includes("success")) {
+                alert("OTP Verified ");
+                hiddenEmail.value = inputemail.value;
+                inputemail.readOnly = true;
+                step1.style.display = "none";
+                step2.style.display = "none";
+                step3.style.display = "block";
+            } else {
+                alert(" Invalid or Expired OTP");
+            }
+        });
+    </script>
+</body>
+
+</html>

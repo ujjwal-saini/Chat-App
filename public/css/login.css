@@ -1,0 +1,64 @@
+body {
+    background-color: #111B21; /* WhatsApp background */
+    color: #ECE5DD;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0%;
+    padding: 0%;
+}
+
+form {
+    background-color: #202C33;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+    width: 300px;
+}
+
+h2 {
+    font-size: 30px;
+    text-align: center;
+    color: #25D366; /* WhatsApp green */
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    background: #2A3942;
+    color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #25D366;
+    border: none;
+    border-radius: 5px;
+    color: #111B21;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #20ba5b;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #25D366;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,65 @@
+<div class="chat-header">
+  <div class="chat-user-info">
+    <img src="/uploads/<%= chatUser.dp %>" alt="DP" class="chat-user-dp">
+    <div>
+      <div class="chat-user-name">
+        <%= chatUser.name %>
+      </div>
+      <div class="chat-user-status <%= chatUser.isOnline ? 'online' : 'offline' %>">
+        <%= chatUser.isOnline ? 'Online' : 'Offline' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-header-actions">
+    <button onclick="startCall()" class="call-btn">📞</button>
+    <div class="menu-toggle">
+      <button onclick="toggleMenu()" class="menu-btn">⋮</button>
+      <div id="dropdownMenu" class="dropdown-menu">
+        <ul>
+          <li><a href="#">View Profile</a></li>
+          <li><a href="#">Delete Chat</a></li>
+          <li><a href="#">Block</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chat-box">
+  <% messages.forEach(function(msg) { %>
+    <div class="message <%= msg.sender == user._id ? 'you' : 'other' %>">
+      <div class="message-content">
+        <% if (msg.text && msg.text.trim() !=='' ) { %>
+          <%= msg.text %>
+            <% } %>
+
+              <% if (msg.media) { const ext=msg.media.split('.').pop().toLowerCase(); %>
+                <% if (['jpg', 'jpeg' , 'png' , 'gif' , 'webp' , 'heic' ].includes(ext)) { %>
+                  <img src="/uploads/<%= msg.media %>" alt="media" class="chat-image"
+                    data-full="/uploads/<%= msg.media %>"
+                    style="max-width: 200px; max-height: 200px; margin-top: 10px; cursor: pointer;">
+
+                  <% } else if (['mp4', 'mov' , 'webm' ].includes(ext)) { %>
+                    <video controls class="chat-video" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+                      <source src="/uploads/<%= msg.media %>" type="video/<%= ext %>">
+                      Your browser does not support the video tag.
+                    </video>
+                    <% } else { %>
+                      <p>[Unsupported file type]</p>
+                      <% } %>
+                        <% } %>
+
+      </div>
+    </div>
+    <% }) %>
+</div>
+
+
+<form class="chat-form">
+  <input type="hidden" name="to" value="<%= chatUser._id %>">
+  <input type="file" name="media" />
+  <input type="text" name="message" placeholder="Type your message...">
+  <button type="submit">Send</button>
+</form>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>WhatsApp Clone - Home</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<style>.image-preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.image-preview-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.image-preview-overlay .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+.message-content {
+  background: none !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0;
+}
+
+.message-content img {
+  display: block;
+  margin-top: 5px;
+  border-radius: 10px;
+  max-width: 150px;
+  height: auto;
+}
+
+</style>
+<body>
+
+    <div class="sidebar">
+        <h2>Welcome, <%= user.name %>
+        </h2>
+        <img src="/uploads/<%= user.dp %>" width="50" height="50" style="border-radius:50%;">
+
+        <form action="/logout" method="post" style="margin-top:10px;">
+            <button type="submit">Logout</button>
+        </form>
+
+        <input type="text" placeholder="Search contacts" style="width:100%; margin-top:20px;">
+
+        <h3>Contacts</h3>
+
+        <% contacts.forEach(function(contact){ %>
+            <div class="contact" onclick="loadChat('<%= contact._id %>')">
+                <img src="/uploads/<%= contact.dp %>" width="30" height="30">
+                <%= contact.name %>
+            </div>
+            <% }) %>
+
+    </div>
+
+    <div class="chat-container">
+                <h3 style="text-align:center; margin-top:50px;">Select a contact to start chatting</h3>
+    </div>
+    <div id="imagePreview" class="image-preview-overlay" style="display: none;">
+  <span class="close-btn">&times;</span>
+  <img id="previewImg" src="" alt="Preview">
+</div>
+   <script>
+   const userId = "<%= user._id %>";
+  const userName = "<%= user.name %>";
+
+  async function loadChat(contactId) {
+    const res = await fetch(`/get-chat/${contactId}`);
+    const html = await res.text();
+    document.querySelector('.chat-container').innerHTML = html;
+
+    bindChatForm();
+  }
+
+   // Rebind form events after content load
+    document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('chat-image')) {
+    const src = e.target.getAttribute('data-full');
+    const previewBox = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+
+    previewImg.src = src;
+    previewBox.style.display = 'flex';
+  }
+
+  if (e.target.classList.contains('close-btn') || e.target.id === 'imagePreview') {
+    document.getElementById('imagePreview').style.display = 'none';
+  }
+});
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script> 
+
+</body>
+
+</html>

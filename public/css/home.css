@@ -1,0 +1,256 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121b22;
+    /* WhatsApp dark background */
+    color: #e9edef;
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 25%;
+    background-color: #202c33;
+    color: #e9edef;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.sidebar img {
+    margin-top: 10px;
+    border: 2px solid #25D366;
+    border-radius: 50%;
+}
+
+.sidebar button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background-color: #1ebc57;
+}
+
+.sidebar input[type="text"] {
+    padding: 8px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background: #2a3942;
+    color: #e9edef;
+    margin-top: 10px;
+}
+
+.sidebar h3 {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #8696a0;
+}
+
+.contact {
+    padding: 10px;
+    background-color: #2a3942;
+    margin-top: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s;
+    color: #e9edef;
+}
+
+.contact:hover {
+    background-color: #3c4b53;
+}
+
+.contact img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.chat-container {
+    width: 75%;
+    background-color: #0b141a;
+    /* WhatsApp dark chat background */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.chat-container h2 {
+    background-color: #202c33;
+    color: #e9edef;
+    padding: 15px;
+    margin: 0;
+    font-size: 16px;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* WhatsApp dark background pattern */
+    background-repeat: repeat;
+    background-size: contain;
+
+    background-color: #0b141a;
+    /* No pattern, just dark */
+}
+
+
+.message {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    font-size: 14px;
+    display: inline-block;
+    position: relative;
+}
+
+.message.you {
+    background-color: #005c4b;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+    color: #e9edef;
+}
+
+.message.other {
+    background-color: #202c33;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+    color: #e9edef;
+}
+
+.message-content b {
+    display: block;
+    font-size: 12px;
+    color: #8696a0;
+    margin-bottom: 5px;
+}
+
+.chat-form {
+    display: flex;
+    padding: 15px;
+    background-color: #202c33;
+    border-top: 1px solid #2a3942;
+}
+
+.chat-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    margin-right: 10px;
+    background: #2a3942;
+    color: #e9edef;
+}
+
+.chat-form button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.chat-form button:hover {
+    background-color: #1ebc57;
+}
+
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #202c33;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+.chat-user-info {
+  display: flex;
+  align-items: center;
+}
+
+.chat-user-dp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.chat-user-name {
+  font-weight: bold;
+}
+
+.chat-user-status {
+  font-size: 12px;
+}
+
+.chat-user-status.online {
+  color: green;
+}
+
+.chat-user-status.offline {
+  color: gray;
+}
+
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.call-btn,
+.menu-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.menu-toggle {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
